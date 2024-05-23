@@ -1,39 +1,45 @@
 #include "menger.h"
+#include <stdio.h>
+#include <math.h>
 
-/**
- * menger - draws a 2D menger sponge
- * @level: the level of the menger sponge to draw
- * Return: Nothing
- */
-void menger(int level)
+void print_char(char c)
 {
-    int x, y, size = pow(3, level);
-
-    for (y = 0; y < size; y++)
-    {
-        for (x = 0; x < size; x++)
-        {
-            printf("%c", sponge_char(y, x));
-        }
-        printf("\n");
-    }
+    putchar(c);
 }
 
-/**
- * sponge_char - returns the character to print
- * @y: the y coordinate value
- * @x: the x coordinate value
- * Return: the character to print in the sponge
- */
-char sponge_char(int y, int x)
+void print_level(int level, int i, int j)
 {
-    while (y && x)
+    while (level > 0)
     {
-        if (y % 3 == 1 && x % 3 == 1)
-            return (' ');
-
-        y /= 3;
-        x /= 3;
+        if (i % 3 == 1 && j % 3 == 1)
+        {
+            print_char(' ');
+        }
+        else
+        {
+            print_level(level - 1, i / 3, j / 3);
+        }
+        i /= 3;
+        j /= 3;
+        level--;
     }
-    return ('#');
+    print_char('#');
+}
+
+void menger(int level)
+{
+    if (level < 0)
+    {
+        return;
+    }
+
+    int size = (int)pow(3, level);
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            print_level(level, i, j);
+        }
+        print_char('\n');
+    }
 }
