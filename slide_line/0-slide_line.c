@@ -1,40 +1,48 @@
-#include <stdio.h>
-
-#define SLIDE_LEFT 1
-#define SLIDE_RIGHT 2
+#include "slide_line.h"
 
 int slide_line(int *line, size_t size, int direction)
 {
+    int *place_here = NULL;
+    int *left = NULL;
+    int *right = NULL;
 
-    // Check for invalid direction
-    if (direction != SLIDE_LEFT && direction != SLIDE_RIGHT)
+    if (direction == SLIDE_LEFT)
     {
-        return 0;
-    }
+        place_here = line;
+        left = place_here;
 
-    // Slide the elements to the specified direction
-    int *write_ptr = line;
-    for (int i = 0; i < size; i++)
-    {
-        if (line[i] != 0)
+        while (left < line + (size - 1))
         {
-            if (write_ptr == line || *write_ptr != line[i])
+            while (*left == 0 && left < line + (size - 1))
             {
-                *(write_ptr++) = line[i];
+                left++;
             }
-            else
+            right = left + 1;
+            while (right < line + (size))
             {
-                *write_ptr *= 2; // Merge with the previous element if same
-                write_ptr++;
+                if (*right == *left)
+                {
+                    *place_here = *left * 2;
+                    if (place_here != left)
+                    {
+                        *left = 0;
+                    }
+                    *right = 0;
+                    place_here++;
+                    break;
+                }
+                else
+                {
+                    right++;
+                }
             }
+            left++;
+        }
+        if (*(line + size - 1) && !*place_here)
+        {
+            *place_here = *(line + size - 1);
+            *(line + size - 1) = 0;
         }
     }
-
-    // Fill the remaining spaces with zeros based on direction
-    while (write_ptr < line + size)
-    {
-        *write_ptr++ = 0;
-    }
-
-    return 1;
+    return (1);
 }
