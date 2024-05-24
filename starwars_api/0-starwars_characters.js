@@ -1,32 +1,24 @@
 #!/usr/bin/node
-// using star wars API
-
 const request = require('request');
-const FILMID = process.argv[2];
 
-// Request URL
-const URL_BASE = 'https://swapi-api.hbtn.io/api/films';
+const id = process.argv[2];
+const url = `https://swapi-api.hbtn.io/api/films/${id}/`;
 
-function doRequest (url) {
-  return new Promise(function (resolve, reject) {
-    request(url, function (error, res, body) {
-      if (!error && res.statusCode === 200) {
-        resolve(JSON.parse(body));
-      } else {
-        reject(error);
-      }
-    });
-  });
-}
-
-// Usage:
-
-async function main (filmID) {
-  const res = await doRequest(`${URL_BASE}/${filmID}`);
-  for (const e of res.characters) {
-    const pj = await doRequest(e);
-    console.log(pj.name);
+request(url, { json: true }, async (err, res, body) => {
+  if (err) {
+    return err;
   }
-}
-
-main(FILMID);
+  const characters = body.characters;
+  for (const character in characters) {
+    await new Promise((resolve, reject) => {
+      request.get(characters[character], { json: true }, (err, res, body) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log(body.name);
+          resolve();
+        }
+      });
+    });
+  }
+});
