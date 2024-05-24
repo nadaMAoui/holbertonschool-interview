@@ -16,4 +16,3 @@ def canUnlockAll(boxes):
     if len(open_box) == box_len:
         return True
     return False
-    
