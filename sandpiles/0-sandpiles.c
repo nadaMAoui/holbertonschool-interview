@@ -1,10 +1,10 @@
 #include "sandpiles.h"
 
 /**
-* is_stable - Checks if a sandpile is stable
-* @grid: The sandpile
-* Return: 1 if the sandpile is stable, 0 otherwise
-*/
+ * is_stable - Checks if a sandpile is stable
+ * @grid: The sandpile
+ * Return: 1 if the sandpile is stable, 0 otherwise
+ */
 int is_stable(int grid[3][3])
 {
 	int i, j;
@@ -21,10 +21,10 @@ int is_stable(int grid[3][3])
 }
 
 /**
-* topple - topples an unstable sandpile
-* @grid: The sandpile
-* Return: Nothing
-*/
+ * topple - topples an unstable sandpile
+ * @grid: The sandpile
+ * Return: Nothing
+ */
 void topple(int grid[3][3])
 {
 	int i, j, copy_grid[3][3];
@@ -64,12 +64,12 @@ void topple(int grid[3][3])
 }
 
 /**
-* sandpiles_sum - sums two stable sandpiles and prints the pile before
-* toppling if the resulting pile is unstable
-* @grid1: the first sandpile
-* @grid2: the second sandpile
-* Return: Nothing
-*/
+ * sandpiles_sum - sums two stable sandpiles and prints the pile before
+ * toppling if the resulting pile is unstable
+ * @grid1: the first sandpile
+ * @grid2: the second sandpile
+ * Return: Nothing
+ */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
 	int i, j;
@@ -96,3 +96,4 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 		}
 		topple(grid1);
 	}
+}
