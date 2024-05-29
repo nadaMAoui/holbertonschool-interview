@@ -1,19 +1,29 @@
-#ifndef BINARY_TREE_H
-#define BINARY_TREE_H
+#ifndef _BINARY_TREES_H_
+#define _BINARY_TREES_H_
 
-// Structure definition for a tree node
-typedef struct treeNode
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+/**
+ * struct binary_tree_s - Binary tree node
+ *
+ * @n: Integer stored in the node
+ * @parent: Pointer to the parent node
+ * @left: Pointer to the left child node
+ * @right: Pointer to the right child node
+ */
+typedef struct binary_tree_s
 {
-    int data;
-    struct treeNode *left;
-    struct treeNode *right;
-    struct treeNode *parent; // Added parent pointer for efficient heap operations
-} treeNode_t;
+    int n;
+    struct binary_tree_s *parent;
+    struct binary_tree_s *left;
+    struct binary_tree_s *right;
+} binary_tree_t;
 
-// Function prototypes
-void max_heapify(treeNode_t *root);
-int get_num_nodes(treeNode_t *root);
-treeNode_t *get_last_node(treeNode_t *root);
-int heap_extract_max(treeNode_t **root);
+typedef struct binary_tree_s heap_t;
 
-#endif
+void binary_tree_print(const binary_tree_t *);
+int heap_extract(heap_t **root);
+
+#endif /* _BINARY_TREES_H_ */
