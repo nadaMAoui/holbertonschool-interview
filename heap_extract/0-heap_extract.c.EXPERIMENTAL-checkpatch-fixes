@@ -1,0 +1,55 @@
+#include "binary_tree.h"
+
+int heap_extract_max(treeNode_t **root)
+{
+	if (root == NULL || *root == NULL)
+	{
+		return (0); /* Heap is empty */
+	}
+
+	treeNode_t *last_node = NULL, *extracted_node = *root;
+	int extracted_value = extracted_node->data;
+
+	/* Handle cases with one or zero nodes */
+	if (extracted_node->left == NULL && extracted_node->right == NULL)
+	{
+		free(extracted_node);
+		*root = NULL;
+		return (extracted_value);
+	}
+
+	/* Move the last node to the root and swap values */
+	last_node = get_last_node(*root);
+	if (last_node->parent->left == last_node)
+	{
+		last_node->parent->left = NULL;
+	}
+	else
+	{
+		last_node->parent->right = NULL;
+	}
+
+	extracted_node->data = last_node->data;
+	last_node->data = extracted_value;
+
+	/* Update child pointers and parent of the last node */
+	last_node->left = extracted_node->left;
+	last_node->right = extracted_node->right;
+	last_node->parent = extracted_node->parent;
+
+	if (extracted_node->left)
+	{
+		extracted_node->left->parent = last_node;
+	}
+	if (extracted_node->right)
+	{
+		extracted_node->right->parent = last_node;
+	}
+
+	/* Update root pointer and restore the max-heap property */
+	*root = last_node;
+	free(extracted_node);
+	max_heapify(*root);
+
+	return (extracted_value);
+}
