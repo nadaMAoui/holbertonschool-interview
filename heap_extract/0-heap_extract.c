@@ -60,6 +60,7 @@ int get_num_nodes(heap_t *root)
 binary_tree_t *get_last_node(heap_t *root)
 {
 	int nodes = 0, size_heap = 0;
+
 	binary_tree_t *last_node = NULL;
 
 	size_heap = get_num_nodes(root);
