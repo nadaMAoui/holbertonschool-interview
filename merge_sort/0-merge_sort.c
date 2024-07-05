@@ -85,3 +85,4 @@ void merge_sort(int *array, size_t size)
 	merge_rec(array, size, temp);
 	free(temp);
 }
+
