@@ -8,6 +8,7 @@
 * @temp: pointer to a working array
 * Return: nothing
 */
+
 void merge_worker(int *array, int size, int middle, int *temp)
 {
 	int i, j, k;
