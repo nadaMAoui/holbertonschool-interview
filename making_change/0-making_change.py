@@ -1,18 +1,20 @@
 #!/usr/bin/python3
-'''Making Change module'''
+"""Making Change module"""
 
 
 def makeChange(coins, total):
-    '''Function that makes change for a given total'''
-    if total < 1:
+    """Given a pile of coins of different values,
+    determine the fewest number of coins needed to meet a given amount total.
+    """
+    if total <= 0:
         return 0
-    change = 0
-    coins.sort(reverse=True)
-    for coin in coins:
-        temp_change = int(total / coin)
-        total -= (temp_change * coin)
-        change += temp_change
-        if total == 0:
-            return change
-    if total != 0:
-        return -1
+    coins = sorted(coins)
+    coins = reversed(coins)
+    s = 0
+    for i in coins:
+        sc = total // i
+        total = total - (sc * i)
+        s += sc
+    if total == 0:
+        return s
+    return -1
