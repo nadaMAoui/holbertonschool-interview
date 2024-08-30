@@ -1,7 +1,10 @@
 #include <stdio.h>
-
-
-/*comment*/
+/**
+ * regex_match - checks whether a given pattern matches a given string
+ * @str: the string given
+ * @pattern: the regular expression given
+ * Return: 1 otherwise 0
+ */
 
 int regex_match(char const *str, char const *pattern)
 {
