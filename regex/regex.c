@@ -20,11 +20,11 @@ return (1);
 }
 str++;
 }
-return regex_match(str, pattern + 2);
+return (regex_match(str, pattern + 2));
 }
 if (*str == *pattern || (*pattern == '.' && *str != '\0'))
 {
-return regex_match(str + 1, pattern + 1);
+return (regex_match(str + 1, pattern + 1));
 }
 return (0);
 }
