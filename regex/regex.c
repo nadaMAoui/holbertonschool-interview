@@ -1,5 +1,5 @@
 #include <stdio.h>
-''' regex '''
+//regex
 
 int regex_match(char const *str, char const *pattern) {
     if (*str == '\0' && *pattern == '\0') {
