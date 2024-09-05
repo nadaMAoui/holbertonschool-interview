@@ -75,7 +75,8 @@ break;
 }
 if (found == 0)
 {
-match = 0;break;
+match = 0;
+break;
 }
 }
 free(checked);
