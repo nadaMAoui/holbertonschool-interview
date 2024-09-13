@@ -1,45 +1,30 @@
 #!/usr/bin/python3
-"""
-Prime Game
+"""0. Prime Game
 """
 
 
 def isWinner(x, nums):
-    """
-    Determine the winner of a game of Prime Game.
-    """
-    def is_prime(n):
-        if n <= 1:
-            return False
-        for i in range(2, int(n**0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
-
-    def get_primes(n):
-        primes = []
-        for i in range(2, n + 1):
-            if is_prime(i):
-                primes.append(i)
-        return primes
-
-    def play_game(n):
-        primes = get_primes(n)
-        if len(primes) % 2 == 0:
-            return "Ben"
-        else:
-            return "Maria"
-
-    winners = []
-    for num in nums:
-        winners.append(play_game(num))
-
-    winner_counts = {player: winners.count(player) for player in set(winners)}
-    max_wins = max(winner_counts.values())
-    winning_players = [player for player, wins in winner_counts.items()
-                       if wins == max_wins]
-
-    if len(winning_players) == 1:
-        return winning_players[0]
-    else:
+    """Prime Game"""
+    if not nums or x < 1:
         return None
+    n = max(nums)
+    fltr = [True for _ in range(max(n + 1, 2))]
+    for i in range(2, int(pow(n, 0.5)) + 1):
+        if not fltr[i]:
+            continue
+        for j in range(i * i, n + 1, i):
+            fltr[j] = False
+    fltr[0] = fltr[1] = False
+    c = 0
+    for i in range(len(fltr)):
+        if fltr[i]:
+            c += 1
+        fltr[i] = c
+    p1 = 0
+    for n in nums:
+        p1 += fltr[n] % 2 == 1
+    if p1 * 2 == len(nums):
+        return None
+    if p1 * 2 > len(nums):
+        return "Maria"
+    return "Ben"
